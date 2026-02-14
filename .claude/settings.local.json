@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(del \"C:\\\\Users\\\\saharat\\\\Documents\\\\pong\\\\color_rect.gd\")",
+      "Bash(del \"C:\\\\Users\\\\saharat\\\\Documents\\\\pong\\\\color_rect.gd.uid\")"
+    ]
+  }
+}

@@ -1,47 +1,56 @@
 [gd_scene format=3 uid="uid://b821myv7hqira"]
 
-[ext_resource type="Script" uid="uid://c5ktme8hejuti" path="res://ball.gd" id="1_1bvp3"]
-[ext_resource type="Script" uid="uid://c8fh0pafrm627" path="res://color_rect.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://diak504hkmkmd" path="res://main.gd" id="1_main"]
 [ext_resource type="PackedScene" uid="uid://de78u6sepvyir" path="res://ball.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://d4j7xe1qi3tfu" path="res://paddle.tscn" id="4_1bvp3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
 size = Vector2(1280, 20)
 
-[node name="Main" type="Node2D" unique_id=2124605723]
-script = ExtResource("1_1bvp3")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_goal"]
+size = Vector2(20, 720)
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=391666239]
-offset_left = 600.0
-offset_top = 300.0
-offset_right = 680.0
-offset_bottom = 380.0
-script = ExtResource("1_ig7tw")
+[node name="Main" type="Node2D" unique_id=433565560]
+script = ExtResource("1_main")
 
-[node name="WallTop" type="StaticBody2D" parent="." unique_id=2057521043]
+[node name="WallTop" type="StaticBody2D" parent="." unique_id=746931499]
 position = Vector2(640, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallTop" unique_id=49733617]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallTop" unique_id=629746841]
 shape = SubResource("RectangleShape2D_h2yge")
 
-[node name="WallBottom" type="StaticBody2D" parent="." unique_id=580119446]
+[node name="WallBottom" type="StaticBody2D" parent="." unique_id=2024487976]
 position = Vector2(640, 720)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallBottom" unique_id=2037689013]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallBottom" unique_id=99907147]
 shape = SubResource("RectangleShape2D_h2yge")
 
-[node name="Player" parent="." unique_id=554092140 instance=ExtResource("4_1bvp3")]
-position = Vector2(228.45798, 88.86678)
+[node name="Player" parent="." unique_id=186555850 instance=ExtResource("4_1bvp3")]
+position = Vector2(50, 360)
 
-[node name="Ai" parent="." unique_id=984108551 instance=ExtResource("4_1bvp3")]
+[node name="AI" parent="." unique_id=759369764 instance=ExtResource("4_1bvp3")]
 position = Vector2(1230, 360)
+move_speed = 1200.0
 is_player = false
 
-[node name="Ball" parent="." unique_id=1057295766 instance=ExtResource("2_0xm2m")]
+[node name="Ball" parent="." unique_id=1111744435 instance=ExtResource("2_0xm2m")]
+position = Vector2(640, 360)
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=274780912]
+[node name="GoalLeft" type="Area2D" parent="." unique_id=1872858931]
+position = Vector2(-10, 360)
 
-[node name="ScoreLabel" type="Label" parent="UI" unique_id=1356063062]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalLeft" unique_id=1989649784]
+shape = SubResource("RectangleShape2D_goal")
+
+[node name="GoalRight" type="Area2D" parent="." unique_id=1484361642]
+position = Vector2(1290, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalRight" unique_id=469017416]
+shape = SubResource("RectangleShape2D_goal")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=154251161]
+
+[node name="ScoreLabel" type="Label" parent="UI" unique_id=2143452342]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -52,7 +61,7 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 48
 text = "0 - 0"
 
-[node name="GameOverLabel" type="Label" parent="UI" unique_id=1533033793]
+[node name="GameOverLabel" type="Label" parent="UI" unique_id=397602934]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -68,7 +77,8 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 64
 text = "GAME OVER"
 
-[node name="RestartLabel" type="Label" parent="UI" unique_id=1199248238]
+[node name="RestartLabel" type="Label" parent="UI" unique_id=917382714]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -83,8 +93,64 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 24
 text = "Press Space to restart"
 
-[node name="CenterLine" type="ColorRect" parent="." unique_id=974990583]
-anchors_preset = -1
+[node name="HitsLabel" type="Label" parent="UI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -40.0
+offset_right = 200.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Hits: 0"
+
+[node name="HighScoreLabel" type="Label" parent="UI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -40.0
+offset_right = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 2
+text = "Best: 0"
+
+[node name="ComboLabel" type="Label" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 60.0
+offset_right = 100.0
+offset_bottom = 90.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 0.85, 0, 1)
+horizontal_alignment = 1
+
+[node name="NewHighScoreLabel" type="Label" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = 50.0
+offset_right = 120.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.85, 0, 1)
+horizontal_alignment = 1
+text = "NEW HIGH SCORE!"
+
+[node name="CenterLine" type="ColorRect" parent="." unique_id=28403033]
 offset_left = 638.0
 offset_right = 642.0
 offset_bottom = 720.0

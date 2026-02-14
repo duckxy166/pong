@@ -20,6 +20,6 @@ func _physics_process(delta):
 				input_dir = sign(diff)
 
 	velocity = Vector2(0, input_dir * move_speed)
-	move_and_slide()
+	move_and_collide(velocity * delta)
 
 	position.y = clamp(position.y, 70, 650)
