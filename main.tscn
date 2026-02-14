@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://b821myv7hqira"]
 
 [ext_resource type="Script" uid="uid://c8fh0pafrm627" path="res://color_rect.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://de78u6sepvyir" path="res://ball.tscn" id="2_0xm2m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
+size = Vector2(1280, 20)
 
 [node name="Main" type="Node2D" unique_id=2124605723]
 
@@ -10,3 +14,18 @@ offset_top = 300.0
 offset_right = 680.0
 offset_bottom = 380.0
 script = ExtResource("1_ig7tw")
+
+[node name="WallTop" type="StaticBody2D" parent="." unique_id=2057521043]
+position = Vector2(640, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallTop" unique_id=49733617]
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="WallBottom" type="StaticBody2D" parent="." unique_id=580119446]
+position = Vector2(640, 720)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallBottom" unique_id=2037689013]
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="Ball" parent="." unique_id=1057295766 instance=ExtResource("2_0xm2m")]
+position = Vector2(640, 360)
