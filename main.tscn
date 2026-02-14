@@ -1,12 +1,15 @@
 [gd_scene format=3 uid="uid://b821myv7hqira"]
 
+[ext_resource type="Script" uid="uid://c5ktme8hejuti" path="res://ball.gd" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://c8fh0pafrm627" path="res://color_rect.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://de78u6sepvyir" path="res://ball.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://d4j7xe1qi3tfu" path="res://paddle.tscn" id="4_1bvp3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
 size = Vector2(1280, 20)
 
 [node name="Main" type="Node2D" unique_id=2124605723]
+script = ExtResource("1_1bvp3")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=391666239]
 offset_left = 600.0
@@ -27,5 +30,62 @@ position = Vector2(640, 720)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallBottom" unique_id=2037689013]
 shape = SubResource("RectangleShape2D_h2yge")
 
+[node name="Player" parent="." unique_id=554092140 instance=ExtResource("4_1bvp3")]
+position = Vector2(228.45798, 88.86678)
+
+[node name="Ai" parent="." unique_id=984108551 instance=ExtResource("4_1bvp3")]
+position = Vector2(1230, 360)
+is_player = false
+
 [node name="Ball" parent="." unique_id=1057295766 instance=ExtResource("2_0xm2m")]
-position = Vector2(640, 360)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=274780912]
+
+[node name="ScoreLabel" type="Label" parent="UI" unique_id=1356063062]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
+text = "0 - 0"
+
+[node name="GameOverLabel" type="Label" parent="UI" unique_id=1533033793]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -11.5
+offset_right = 46.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "GAME OVER"
+
+[node name="RestartLabel" type="Label" parent="UI" unique_id=1199248238]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.5
+offset_top = 89.5
+offset_right = 84.5
+offset_bottom = 112.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "Press Space to restart"
+
+[node name="CenterLine" type="ColorRect" parent="." unique_id=974990583]
+anchors_preset = -1
+offset_left = 638.0
+offset_right = 642.0
+offset_bottom = 720.0
+color = Color(0.7581918, 0.7581918, 0.7581917, 1)
